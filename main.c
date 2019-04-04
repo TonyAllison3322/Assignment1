@@ -9,7 +9,7 @@
     
     int main()
 {
-    
+
     FILE * file_pointer;                        //initalise a file for use
     file_pointer = fopen("input.txt", "r"); // opens the file
     if (file_pointer == NULL) {
