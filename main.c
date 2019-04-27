@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
     //Function prototypes
     
@@ -7,7 +8,7 @@
     char EOB(int letter, int key); //encryption out of bounds of 56 - 90
     char DIB(int letter, int key); //decryption in bounds of 56 - 90
     char DOB(int letter, int key); //decryption out of  bounds of 56 - 90
-    
+    char DWK(int letter, int key); //decryption with key
     
     int main()
     
@@ -15,11 +16,13 @@
     //Functions
 
     //Variables
-    
-    int key;     // intialises key for future use
+    char message[100];
+    int key = 1;     // intialises key for future use
     char letter; // stores 'letter' as a char variable
     int userchoice; 
-
+    int s = 1; //shift
+    int i; // increment
+    char letterN; //New message
         /*-----------------User interface here-------------------------*/
         /*printf("Hello, Which cipher would you like to use?\n\n1) Rotational\n2) Substitution\n");
         scanf("%d", &userchoice);
@@ -37,8 +40,35 @@
         perror("Error:");
         return -1;
         }
-    //fix the space bar key and star degryption
-    
+        
+        // Decryption with key 
+        // printf("%d : ", i);
+        while(!feof(file_pointer))
+        {
+            fscanf(file_pointer, "%s", message[i]);
+            printf("%c\t", message[i]);
+            printf("boo");
+         }  
+           /* if(letter >=65 && letter <=90)
+            {
+                printf("%c", DWK(letter, key));
+            }
+            
+            else
+            {
+                printf("%c", letter);
+            }
+
+        }
+      
+printf("\n");
+            
+        
+*/
+
+      //      printf("\n");
+      // printf("finished");
+     
     /*Encyption 
    
         fscanf(file_pointer,  "%d", &key); // enters value of key
@@ -51,11 +81,9 @@
         // Spacebar Block
         
        
-            if(letter == 32) {// 32 = space
-            printf("%c", letter);
-           }
+          
 
-            else if  (letter > 90) // encyption
+            if  (letter >= 96 && letter <=122) // encyption
             {  
             letter = letter - 32; // turns the letter ASCII number from a lowercase to uppercase
             if(letter + key > 90) 
@@ -71,22 +99,29 @@
                        
             
             //Uppercase Block  
-            else if (letter <91)
+            else if (letter >=65 && letter <=90)
             {
             printf("%c", EIB(letter, key)); 
-        }
+        
 
-                else 
+                if(letter + key > 90) 
                 {        
                 printf("%c", letter); //printf("%c", EOB(letter, key)); 
                 } 
-               
-        
- } */
+               } 
+             else
+             {
+                 printf("%c", letter);
+             }
+    
+
+ } 
+*/
 fclose(file_pointer); //closes the file
 return(0);
-
 }
+
+
 //Function Definitions
 
 char EIB(int letter, int key)
@@ -112,5 +147,12 @@ char DIB(int letter, int key)
 char DOB(int letter, int key)
 {
     char letterD;
-    letterD = letter - 32;
+    letterD = letter - 26;
+}
+
+char DWK(int letter, int key)
+{
+    char letterN;
+    letterN = letter - key;
+    return letterN;
 }
