@@ -63,16 +63,13 @@
         fscanf(subinput, "%c", &letter);
         if(letter >= 'A' && letter <= 'Z')
         {
-            printf("%c\t\t", letter);
-            
+           
             p = strchr(subkey, letter);
-            printf("%d\t", p);
             index = (int)(p - subkey);
-            printf("%d\t\t",index);
-            fseek( subkeyinput, index , SEEK_SET);
+            fseek( subkeyinput, index , SEEK_CUR);
             letterN = index + 65;
-            printf("%c\n", letterN);
-            p = 0;
+            printf("%c", letterN);
+            
         }
         else if(letter >= 'a' && letter <= 'z')
         {
@@ -81,16 +78,16 @@
             int index;
             p = strchr(subkey, letter);
             index = (int)(p - subkey);
-            fseek( subkeyinput, index , SEEK_SET);
+            fseek( subkeyinput, index , SEEK_CUR);
             letterN = index + 65;
             printf("%c\n", letterN);
             
-        }
-        else
+       }
+         else
         {
-            letterN = letter;
-            printf("%c\n", letter);
-            p = 0;
+            
+            printf("%c", letter);
+            
         } 
     }
 
@@ -298,5 +295,8 @@ char SUBEWK(char letter, int i)
                 printf("%c", letter);
             }
         }
+}
+
+
 }
 
