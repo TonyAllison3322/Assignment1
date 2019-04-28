@@ -19,101 +19,80 @@
     //Variables
     int key;     // intialises key for future use
     char letter; // stores 'letter' as a char variable
-    int userchoice; 
-    char subkey[26];
-    int i ;
-    char ch;
-    char *p;
-    int index;
-    char letterN;
+    int userinput;
+    int userchoice;
+    int i;
+   
+    printf("Hello\nWhich cipher would you like to use?\n\n1) Rotational?\n2) Substitutional?\n");
+    scanf("%d", &userchoice);
+    switch (userchoice)
+    {
+        case(1) :
+        {
+            printf("Are you trying to 1) Encrypt or 2) Decrypt?\n");
+            scanf("%d", &userinput);
+            switch(userinput)
+            {
+                case(1) :
+                {
+                    printf("You picked Encrypt\nTo input and output your key and message you will need to have three files named : \n");
+                    printf("rotinput.txt, rotkeyinput.txt, rotoutput.txt\n For your text input, key input and text output respectively\n");
+                    printf("If no error has occured you have named files correctly and it will now encrypt.\n");
+                    printf("%c", EWK(letter, key));
+                    break;
+                }
+                case(2) :
+                {
+                    printf("You picked Decrypt\nTo input and output your key and message you will need to have three files named : \n");
+                    printf("subinput.txt, subkeyinput.txt, suboutput.txt\n For your text input, key input and text output respectively\n");
+                    printf("If no error has occured you have named files correctly and it will now decrypt.\n");
+                    printf("%c", DWK(letter, key));
+                    break;
+                }
+            }
+            break;
+        }
+        case(2) :
+        {
+            printf("Are you trying to 1) Encrypt or 2) Decrypt?\n");
+            scanf("%d", &userinput);
+            switch(userinput)
+            {
+                case(1) : 
+                {
+                    printf("You picked Encrypt\nTo input and output your key and message you will need to have three files named : \n");
+                    printf("rotinput.txt, rotkeyinput.txt, rotoutput.txt\n For your text input, key input and text output respectively\n");
+                    printf("If no error has occured you have named files correctly and it will now encrypt.\n");
+                    printf("%c", SUBEWK(letter, i));   
+                }
+                case(2) :
+                {
+                    printf("You picked Decrypt\nTo input and output your key and message you will need to have three files named : \n");
+                    printf("rotinput.txt, rotkeyinput.txt, rotoutput.txt\n For your text input, key input and text output respectively\n");
+                    printf("If no error has occured you have named files correctly and it will now decrypt.\n");
+                    printf("%c", SUBDWK(letter, i));
+                }
+            }
+            break;
+        }
+        default :
+        {
+            printf("You failed try again");
+            break;
+        }
+    }
+    return 0;
+}
+
     
-    FILE * subkeyinput;
-        subkeyinput = fopen("subkeyinput.txt", "r");
-    FILE * output;
-    output = fopen("rotkeyoutput.txt", "w"); 
-    if (output == NULL) 
-        {
-        perror("Error:");
-        return -1;
-        }  
-    FILE * file_pointer;                    // intialising and opening of key input text file
-    file_pointer = fopen("rotkeyinput.txt", "r");
-    if (file_pointer == NULL) 
-        {
-        perror("Error:");
-        return -1;
-        }
-    FILE * subinput;
-    subinput = fopen("subinput.txt", "r" );
-    if (file_pointer == NULL) 
-        {
-        perror("Error:");
-        return -1;
-        }
         
-         //fscanf(file_pointer,  "%d", &key);
-         //fprintf(output, "Key is %d\n", key);
+
          //printf("%c", EWK(letter, key));
          //printf("%c", DWK(letter, key));
          //printf("%c", SUBEWK(letter, i));
          //printf("%c", SUBDWK(letter, i));
-    while(!feof(subinput))
-    {
-        fscanf(subkeyinput, "%s", subkey);
-        fscanf(subinput, "%c", &letter);
-        if(letter >= 'A' && letter <= 'Z')
-        {
-           
-            p = strchr(subkey, letter);
-            index = (int)(p - subkey);
-            fseek( subkeyinput, index , SEEK_CUR);
-            letterN = index + 65;
-            printf("%c", letterN);
-            
-        }
-        else if(letter >= 'a' && letter <= 'z')
-        {
-            letter = letter - 32;
-            char *p;
-            int index;
-            p = strchr(subkey, letter);
-            index = (int)(p - subkey);
-            fseek( subkeyinput, index , SEEK_CUR);
-            letterN = index + 65;
-            printf("%c\n", letterN);
-            
-       }
-         else
-        {
-            
-            printf("%c", letter);
-            
-        } 
-    }
 
 
-    
-    
-   
-
-   
-  /* const char c;
-   char *p;
-        while (!feof(subinput))
-        {
-            fscanf(subkeyinput, "%s", subkey);  // reads key file as a string
-            fscanf(subinput, "%c", &letter); // scans the text file for a char
-           
-            p = strchr(subkey, letter);
-            
-            printf("%c", p);
-        }
-*/
-fclose(output);       //closes the file
-fclose(file_pointer); //closes the file
-
-return(0);
-}
 
 //Function Definitions
 
@@ -151,8 +130,6 @@ FILE * outputtext;
     outputtext = fopen("rotoutput.txt", "w");
     FILE * input;                    // intialising and opening of input text file
     input = fopen("rotinput.txt", "r"); 
-    FILE * output;
-    output = fopen("rotkeyoutput.txt", "w");
     FILE * file_pointer;                    // intialising and opening of key input text file
     file_pointer = fopen("rotkeyinput.txt", "r");
 
@@ -206,8 +183,6 @@ char EWK(char letter, int key)
     outputtext = fopen("rotoutput.txt", "w");
     FILE * input;                    // intialising and opening of input text file
     input = fopen("rotinput.txt", "r"); 
-    FILE * output;
-    output = fopen("rotkeyoutput.txt", "w");
     FILE * file_pointer;                    // intialising and opening of key input text file
     file_pointer = fopen("rotkeyinput.txt", "r");
 
@@ -235,7 +210,7 @@ char EWK(char letter, int key)
             else if(letter >= 'a' && letter <= 'z')
                 {
                     letter = letter - 32;
-                    if(letter - key > 'Z' )
+                    if(letter + key > 'Z' )
                     {
                         printf("%c", EOB(letter, key));
                         fprintf(outputtext, "%c", EOB(letter, key));
@@ -262,6 +237,9 @@ char SUBEWK(char letter, int i)
         subkeyinput = fopen("subkeyinput.txt", "r");
         FILE * subinput;
         subinput = fopen("subinput.txt", "r" );
+        FILE * suboutput;
+        suboutput = fopen("suboutput.txt","w");
+    
         
    while (!feof(subinput)) // expect 1 successful conversion 
         {
@@ -279,7 +257,8 @@ char SUBEWK(char letter, int i)
                 i = letter;                      // makes the 'i' offset = to the letter so that the seek statement can move to the key in that slot.
                 fseek( subkeyinput, i , SEEK_SET ); // moves pointer to the corresponding letter
                 fscanf(subkeyinput, "%c", &ch);     // scans the single character and prints the encryption
-                printf("%c", ch);   
+                printf("%c", ch); 
+                fprintf(suboutput, "%c", ch);
             }
             else if(letter >= 'a' && letter <= 'z')
             {
@@ -289,14 +268,63 @@ char SUBEWK(char letter, int i)
                 fseek( subkeyinput, i , SEEK_SET ); // moves pointer to the corresponding letter
                 fscanf(subkeyinput, "%c", &ch);     // scans the single character and prints the encryption
                 printf("%c", ch);
+                fprintf(suboutput, "%c", ch);
             }
             else if(fscanf(subkeyinput, "%c", &ch)) 
             {
                 printf("%c", letter);
+                fprintf(suboutput, "%c", letter);
             }
         }
 }
-
-
+char SUBDWK(char letter, int i)
+{
+     // stores 'letter' as a char variable
+    char subkey[26];
+    char ch;
+    char *p; // sets a pointer for use in th strchr function.
+    int index;  // allows a value to be associated with the length of a str at the pointer.
+    char letterN;
+    FILE * subkeyinput;
+    subkeyinput = fopen("subkeyinput.txt", "r");
+    FILE * subinput;
+    subinput = fopen("subinput.txt", "r" );
+    FILE * suboutput;
+    suboutput = fopen("suboutput.txt","w");
+    
+    while(!feof(subinput))
+    {
+        fscanf(subkeyinput, "%s", subkey);
+        fscanf(subinput, "%c", &letter);
+        if(letter >= 'A' && letter <= 'Z')
+        {
+           
+            p = strchr(subkey, letter); // scanning the key for the first instance of a letter.
+            index = (int)(p - subkey); // algorithim which gives the length of a str at the pointer.
+            fseek( subkeyinput, index , SEEK_CUR); // using the index the seek statment has a address to look at
+            letterN = index + 65; //the index will be between 0 and 25 so adding 65 will bump it into ascii
+            printf("%c", letterN);
+            fprintf(suboutput, "%c", letterN);
+        }
+        else if(letter >= 'a' && letter <= 'z')
+        {
+            letter = letter - 32;
+            char *p;
+            int index;
+            p = strchr(subkey, letter);
+            index = (int)(p - subkey);
+            fseek( subkeyinput, index , SEEK_CUR);
+            letterN = index + 65;
+            printf("%c", letterN);
+            fprintf(suboutput, "%c", letterN);
+       }
+         else
+        {
+            
+            printf("%c", letter);
+            fprintf(suboutput, "%c", letter);
+        } 
+    }
 }
+
 
