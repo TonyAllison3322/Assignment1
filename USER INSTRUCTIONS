@@ -1,0 +1,24 @@
+Hello and thanks for using my cipher system. This cipher has a couple of rules before it can run. Firstly each cipher runs from three different files each, having a total or six files
+the names and functions are listed as below. If you would like to add in your own file for test or key, youcan either modify the files or delete the existing files and rename your files 
+as the same thing.
+
+In these files there is one issue, the cipher will always print the file character twice, however, if you make the final character in your message a "space" character you cannot see it
+and therefore doesn't ruin the message.
+
+rotinput.txt, rotkeyinput.txt, rotoutput.txt\n For your text input, key input and text output respectively
+subinput.txt, subkeyinput.txt, suboutput.txt\n For your text input, key input and text output respectively
+
+The final instruction, since Eclipse Che doesn't like the normal use of stdin and stout through the use of scanf(), there is an added USERINPUT file for the users use. This files
+the user to correctly insert a number of integers, either 1 or 2, so that the user interface will work. A brief overview of the choices that you can give are. 
+
+1 will make you begin to use the rotational cipher, you will the need to put another integer (1 or 2), to decide if you will encrypt or decrypt.
+
+2 will make you use the substitutional cipher, you will the need to put another integer (1 or 2), to decide if you will encrypt or decrypt.
+
+And example is printed below,
+
+I want to encrypt my text using a rotational cipher so i will print two integers into the USERINPUT file
+
+1 1
+
+The first 1 picks the cipher, the second 1 picks the the encrypt mode.
