@@ -8,8 +8,9 @@
     char EOB(char letter, int key); //encryption out of bounds of 56 - 90
     char DIB(char letter, int key); //decryption in bounds of 56 - 90
     char DOB(char letter, int key); //decryption out of  bounds of 56 - 90
-    char DWK(char letter, int key); //decryption with key
-    char EWK(char letter, int key); //encryption with key
+    char DWK(char letter, int key); //rotation decryption with key
+    char EWK(char letter, int key); //Rotation encryption with key
+    char SUBWK(char letter, int i); //Substitution encryption with key
     int main()
     
 {
@@ -18,7 +19,13 @@
     int key;     // intialises key for future use
     char letter; // stores 'letter' as a char variable
     int userchoice; 
-
+    char subkey[26];
+    //char message[10][150],buffer[150];
+    int i ;
+    char ch;
+    
+    FILE * subkeyinput;
+        subkeyinput = fopen("subkeyinput.txt", "r");
     FILE * output;
     output = fopen("rotkeyoutput.txt", "w"); 
     if (output == NULL) 
@@ -33,14 +40,23 @@
         perror("Error:");
         return -1;
         }
+    FILE * subinput;
+    subinput = fopen("subinput.txt", "r" );
+    if (file_pointer == NULL) 
+        {
+        perror("Error:");
+        return -1;
+        }
         
-        // Decryption with key 
-         fscanf(file_pointer,  "%d", &key);
-         fprintf(output, "Key is %d\n", key);
+         //fscanf(file_pointer,  "%d", &key);
+         //fprintf(output, "Key is %d\n", key);
          //printf("%c", EWK(letter, key));
          //printf("%c", DWK(letter, key));
+         printf("%c", SUBWK(letter, i));
          
          
+        
+ 
 
 fclose(output);       //closes the file
 fclose(file_pointer); //closes the file
@@ -68,12 +84,14 @@ char DIB(char letter, int key)
 {
     char letterD;
     letterD = letter - key;
+    return(letterD);
 }
 
 char DOB(char letter, int key)
 {
     char letterD;
     letterD = letter - key + 26;
+    return(letterD);
 }
 
 char DWK(char letter, int key)
@@ -96,7 +114,7 @@ FILE * outputtext;
             if(letter >=65 && letter <=90)
                 {
                     
-                    if(letter + key < 'A' )
+                    if(letter - key < 'A' )
                     {
                         printf("%c", DOB(letter, key)); 
                         fprintf(outputtext, "%c", EOB(letter, key));
@@ -128,6 +146,7 @@ FILE * outputtext;
                     fprintf(outputtext, "%c", letter);
                 }
         } 
+        return(letter);
 }
 
 char EWK(char letter, int key)
@@ -181,5 +200,49 @@ char EWK(char letter, int key)
                     printf("%c", letter);
                     fprintf(outputtext, "%c", letter);
                 }
+        } 
+        return(letter);
+}
+char SUBWK(char letter, int i) 
+{
+    
+    
+        FILE * subkeyinput;
+        subkeyinput = fopen("subkeyinput.txt", "r");
+        FILE * subinput;
+        subinput = fopen("subinput.txt", "r" );
+        
+   while (!feof(subinput)) // expect 1 successful conversion 
+        {
+            char subkey[26];
+            int i;
+            char letter, ch;
+            
+            fscanf(subkeyinput, "%s", subkey);  // reads key file as a string
+            fscanf(subinput, "%c", &letter); // scans the text file for a char
+            
+            
+            if(letter >= 'A' && letter <= 'Z')
+            {
+                letter = letter - 65;            // makes the letter a int between 1 to 26
+                i = letter;                      // makes the 'i' offset = to the letter so that the seek statement can move to the key in that slot.
+                fseek( subkeyinput, i , SEEK_SET ); // moves pointer to the corresponding letter
+                fscanf(subkeyinput, "%c", &ch);     // scans the single character and prints the encryption
+                printf("%c", ch);   
+            }
+            else if(letter >= 'a' && letter <= 'z')
+            {
+                letter = letter - 32;
+                letter = letter - 65;            // makes the letter a int between 1 to 26
+                i = letter;                      // makes the 'i' offset = to the letter so that the seek statement can move to the key in that slot.
+                fseek( subkeyinput, i , SEEK_SET ); // moves pointer to the corresponding letter
+                fscanf(subkeyinput, "%c", &ch);     // scans the single character and prints the encryption
+                printf("%c", ch);
+            }
+            else if(fscanf(subkeyinput, "%c", &ch)) 
+            {
+                printf("%c", letter);
+            }
+
         } 
 }
